@@ -1,54 +1,33 @@
 package com.ty.shopping.controller;
 
 
-import java.util.List;
 
 import com.ty.shopping.dto.Product;
 import com.ty.shopping.user_service.ProductService;
 
 public class ProductController {
 
-	public static void main(String[] args)
-	{
+	public static void main(String[] args) {
 		ProductService service = new ProductService();
 		Product product = new Product();
+		//save product
+//		service.saveProduct();
 		
-//		product.setName("Tshirt");
-//		product.setBrand("Adidas");
-//		product.setPrice(50);
-//		product.setType("RoundNeck");
-//		product.setSize("medium");
-//		product.setRating(4);
-//		service.saveProduct(product);
+		//get the product by id
+		service.getProductById(4,product);
 		
-		product = service.getProductById(4);
-		System.out.println(product.getId());
-		System.out.println(product.getName());
-		System.out.println(product.getBrand());
-		System.out.println(product.getPrice());
-		System.out.println(product.getType());
-		System.out.println(product.getRating());
+		//get the product by brand
+		service.getProductByBrand("karthik");
 		
-//		service.getProductByBrand("karthik");
-//		service.getProductByPrice(100);
-//		service.getProductBySize("large");
-//		service.getProductByType("cotton");
-//		service.getProductByRating(5);
+		//get all the products
+		service.getAllProducts(product);
 		
-		List<Product> products = service.getAllProducts();
-		
-		for (Product product2 : products) {
-			System.out.println(product2.getId());
-			System.out.println(product2.getName());
-			System.out.println(product2.getBrand());
-			System.out.println(product2.getPrice());
-			System.out.println(product2.getSize());
-			System.out.println(product2.getType());
-			System.out.println(product2.getRating());
-			System.out.println("================================");
-		}
-		
-		
+		product.setName("huddy");
+		product.setBrand("Allen Solly");
+		product.setPrice(987);
+		product.setType("cotton");
+		product.setRating(5);
+		product = service.updateProductById(1, product);
 		
 	}
 }

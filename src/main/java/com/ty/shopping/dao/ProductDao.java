@@ -11,11 +11,11 @@ import javax.persistence.Query;
 import com.ty.shopping.dto.Product;
 
 public class ProductDao {
-	public Product saveProduct(Product product) {
+	public Product saveProduct() {
 		EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("vikas");
 		EntityManager entityManager = entityManagerFactory.createEntityManager();
 		EntityTransaction entityTransaction = entityManager.getTransaction();
-
+		Product product = new Product();
 		entityTransaction.begin();
 		entityManager.persist(product);
 		entityTransaction.commit();
@@ -28,72 +28,102 @@ public class ProductDao {
 		EntityManager entityManager = entityManagerFactory.createEntityManager();
 
 		Product product = entityManager.find(Product.class, id);
-//		System.out.println(product.getId());
-//		System.out.println(product.getName());
-//		System.out.println(product.getBrand());
-//		System.out.println(product.getPrice());
-//		System.out.println(product.getType());
-//		System.out.println(product.getRating());
-				return product;
-		
+		System.out.println(product.getId());
+		System.out.println(product.getName());
+		System.out.println(product.getBrand());
+		System.out.println(product.getPrice());
+		System.out.println(product.getType());
+		System.out.println(product.getRating());
+		return product;
+
 	}
 
-	public Product getProductByBrand(String brand) {
+	public List getProductByBrand(String brand) {
 		EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("vikas");
 		EntityManager entityManager = entityManagerFactory.createEntityManager();
 
-		Product product = entityManager.find(Product.class,brand);
-		if (product != null) {
-			return product;
+		String sql = "SELECT p From Product p WHERE p.brand =?1";
+
+		Query query = entityManager.createQuery(sql);
+		query.setParameter(1, brand);
+
+		List<Product> products = query.getResultList();
+		if (products != null) {
+			return products;
 		} else {
+			System.out.println("NO brand found");
 			return null;
 		}
 	}
 
-	public Product getProductByPrice(double price) {
+	public List<Product> getProductByPrice(double price) {
+		EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("vikas");
+		EntityManager entityManager = entityManagerFactory.createEntityManager();
+		String sql = "SELECT p From Product p WHERE p.price =?1";
+
+		Query query = entityManager.createQuery(sql);
+		query.setParameter(1, price);
+
+		List<Product> products = query.getResultList();
+		if (products != null) {
+			return products;
+		} else {
+			System.out.println("NO brand found");
+			return null;
+		}
+
+	}
+
+	public List<Product> getProductByType(String type) {
 		EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("vikas");
 		EntityManager entityManager = entityManagerFactory.createEntityManager();
 
-		Product product = entityManager.find(Product.class, price);
-		if (product != null) {
-			return product;
+		String sql = "SELECT p From Product p WHERE p.type =?1";
+
+		Query query = entityManager.createQuery(sql);
+		query.setParameter(1, type);
+
+		List<Product> products = query.getResultList();
+		if (products != null) {
+			return products;
 		} else {
+			System.out.println("NO brand found");
 			return null;
 		}
 	}
 
-	public Product getProductByType(String type) {
+	public List<Product> getProductBySize(String size) {
 		EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("vikas");
 		EntityManager entityManager = entityManagerFactory.createEntityManager();
 
-		Product product = entityManager.find(Product.class, type);
-		if (product != null) {
-			return product;
+		String sql = "SELECT p From Product p WHERE p.size =?1";
+
+		Query query = entityManager.createQuery(sql);
+		query.setParameter(1, size);
+
+		List<Product> products = query.getResultList();
+		if (products != null) {
+			return products;
 		} else {
+			System.out.println("NO brand found");
 			return null;
 		}
 	}
 
-	public Product getProductBySize(String size) {
+	public List<Product> getProductByRating(double rating) {
 		EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("vikas");
 		EntityManager entityManager = entityManagerFactory.createEntityManager();
 
-		Product product = entityManager.find(Product.class, size);
-		if (product != null) {
-			return product;
-		} else {
-			return null;
-		}
-	}
+		String sql = "SELECT p From Product p WHERE p.rating =?1";
 
-	public Product getProductByRating(double rating) {
-		EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("vikas");
-		EntityManager entityManager = entityManagerFactory.createEntityManager();
+		Query query = entityManager.createQuery(sql);
+		query.setParameter(1, rating);
 
-		Product product = entityManager.find(Product.class, rating);
-		if (product != null) {
-			return product;
+		List<Product> products = query.getResultList();
+		if (products != null) {
+			return products;
 		} else {
+			System.out.println("NO brand found");
 			return null;
 		}
 	}
@@ -130,40 +160,45 @@ public class ProductDao {
 
 		return products;
 	}
-	
-	public Product deleteProductById(int id)
-	{
+
+	public Product deleteProductById(int id) {
 		EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("vikas");
 		EntityManager entityManager = entityManagerFactory.createEntityManager();
 		EntityTransaction entityTransaction = entityManager.getTransaction();
-		
-		Product product = entityManager.find(Product.class,id);
-		
+
+		Product product = entityManager.find(Product.class, id);
+
 		if (product != null) {
 			entityTransaction.begin();
 			entityManager.remove(product);
 			entityTransaction.commit();
-			
+
 			return product;
 		} else {
-			
+
 			System.out.println("No product found");
 			return null;
 		}
 	}
-	public Product updateProductById(int id,Product product)
-	{
+
+	public Product updateProductById(int id, Product product) {
 		EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("vikas");
 		EntityManager entityManager = entityManagerFactory.createEntityManager();
 		EntityTransaction entityTransaction = entityManager.getTransaction();
-		
-		 product = entityManager.find(Product.class, id);
-		
+
+		Product products = entityManager.find(Product.class, id);
+
+		products.setBrand(product.getBrand());
+		products.setName(product.getName());
+		products.setPrice(product.getPrice());
+		products.setRating(product.getRating());
+
 		entityTransaction.begin();
-		entityManager.merge(product);
+		entityManager.merge(products);
 		entityTransaction.commit();
-		
+
 		return product;
-		
+
 	}
+
 }

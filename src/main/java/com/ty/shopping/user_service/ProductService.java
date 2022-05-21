@@ -6,47 +6,159 @@ import com.ty.shopping.dao.ProductDao;
 import com.ty.shopping.dto.Product;
 
 public class ProductService {
-	
-	ProductDao dao = new ProductDao();
 
-	public Product saveProduct(Product product)
-	{
-		return dao.saveProduct(product);
+	public void saveProduct() {
+		ProductDao dao = new ProductDao();
+		Product product = dao.saveProduct();
+		product.setName("Tshirt");
+		product.setBrand("Adidas");
+		product.setPrice(50);
+		product.setType("RoundNeck");
+		product.setSize("medium");
+		product.setRating(4);
+	
+
 	}
-	public Product getProductById(int id)
-	{
-		return dao.getProductById(id);
+
+	public void getProductById(int id,Product product) {
+		ProductDao dao = new ProductDao();
+		
+		dao.getProductById(id);
+		System.out.println(product.getId());
+		System.out.println(product.getName());
+		System.out.println(product.getBrand());
+		System.out.println(product.getPrice());
+		System.out.println(product.getType());
+		System.out.println(product.getRating());
 	}
-	public Product getProductByBrand(String brand)
-	{
-		return dao.getProductByBrand(brand);
+
+	public void getProductByBrand(String brand) {
+		ProductDao dao = new ProductDao();
+		List<Product> products = dao.getProductByBrand(brand);
+		if (dao.getProductByBrand(brand).size() > 0) {
+			for (Product product : products) {
+
+				System.out.println(product.getId());
+				System.out.println(product.getName());
+				System.out.println(product.getBrand());
+				System.out.println(product.getPrice());
+				System.out.println(product.getType());
+				System.out.println(product.getRating());
+			}
+		} else {
+			System.out.println("no product found");
+		}
 	}
-	public Product getProductByPrice(double price)
-	{
-		return dao.getProductByPrice(price);
+
+	public void getProductByPrice(double price) {
+		ProductDao dao = new ProductDao();
+		List<Product> products = dao.getProductByPrice(price);
+		if (dao.getProductByPrice(price).size() > 0) {
+			for (Product product : products) {
+
+				System.out.println(product.getId());
+				System.out.println(product.getName());
+				System.out.println(product.getBrand());
+				System.out.println(product.getPrice());
+				System.out.println(product.getType());
+				System.out.println(product.getRating());
+			}
+		} else {
+			System.out.println("no product found");
+		}
 	}
-	public Product getProductByType(String type)
-	{
-		return dao.getProductByType(type);
+
+	public void getProductByType(String type) {
+		ProductDao dao = new ProductDao();
+		List<Product> products = dao.getProductByType(type);
+		if (dao.getProductByType(type).size() > 0) {
+			for (Product product : products) {
+
+				System.out.println(product.getId());
+				System.out.println(product.getName());
+				System.out.println(product.getBrand());
+				System.out.println(product.getPrice());
+				System.out.println(product.getType());
+				System.out.println(product.getRating());
+			}
+		} else {
+			System.out.println("no product found");
+		}
 	}
-	public Product getProductBySize(String size)
-	{
-		return dao.getProductBySize(size);
+
+	public void getProductBySize(String size) {
+		ProductDao dao = new ProductDao();
+		List<Product> products = dao.getProductByBrand(size);
+		if (dao.getProductBySize(size).size() > 0) {
+			for (Product product : products) {
+
+				System.out.println(product.getId());
+				System.out.println(product.getName());
+				System.out.println(product.getBrand());
+				System.out.println(product.getPrice());
+				System.out.println(product.getType());
+				System.out.println(product.getRating());
+			}
+		} else {
+			System.out.println("no product found");
+		}
 	}
-	public Product getProductByRating(double rating)
-	{
-		return dao.getProductByRating(rating);
+
+	public void getProductByRating(double rating) {
+		ProductDao dao = new ProductDao();
+		List<Product> products = dao.getProductByRating(rating);
+		if (dao.getProductByRating(rating).size() > 0) {
+			for (Product product : products) {
+
+				System.out.println(product.getId());
+				System.out.println(product.getName());
+				System.out.println(product.getBrand());
+				System.out.println(product.getPrice());
+				System.out.println(product.getType());
+				System.out.println(product.getRating());
+			}
+		} else {
+			System.out.println("no product found");
+		}
 	}
-	public List<Product> validateProduct(String name,String brand)
-	{
-		return dao.validateProduct(name, brand);
+
+	public void validateProduct(String name, String brand) {
+		ProductDao dao = new ProductDao();
+		dao.validateProduct(name, brand);
+		
 	}
-	public Product deleteProductById(int id)
-	{
+
+	public Product deleteProductById(int id) {
+		ProductDao dao = new ProductDao();
+
 		return dao.deleteProductById(id);
 	}
-	public List<Product> getAllProducts()
+
+	public void getAllProducts(Product product) {
+
+		ProductDao dao = new ProductDao();
+		List<Product> products = dao.getAllProducts();
+
+		for (Product product2 : products) {
+			System.out.println(product2.getId());
+			System.out.println(product2.getName());
+			System.out.println(product2.getBrand());
+			System.out.println(product2.getPrice());
+			System.out.println(product2.getSize());
+			System.out.println(product2.getType());
+			System.out.println(product2.getRating());
+			System.out.println("================================");
+		}
+	}
+	public Product updateProductById(int id,Product product)
 	{
-		return dao.getAllProducts();
+		ProductDao dao = new ProductDao();
+//		Product product = new Product();
+//		
+//		
+		return dao.updateProductById(id, product);
+		
+		
+		
 	}
 }
